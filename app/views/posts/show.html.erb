@@ -1,21 +1,19 @@
 <h2><%= @post.title %></h2>
-
 <%= @post.text %>
+
 <h3>Hall of fame :: Recent Commenters</h3>
 <ul>
 <% @recent_commenters.each do |commenter| %>
   <li><%= commenter %> </li>
 <% end %>
 </ul>
+
 <h3>All Comments</h3>
-<% Comment.where(post_id:@post.id).each do |comment| %>
-  <p>
-  <i>Commented on:<%= comment.created_at %></i><br/>
-  <i>Commented by:<%= "#{comment.user.login}::#{comment.commenter_address}" %> </i><br/>
-  <%= comment.text %>
-  </p>
+<% @comments.each do |comment| %>
+  <%= render 'comments/comment' %>
 <% end %>
-<% if logged_in? %>
+
+<% if current_user %>
   <h3>Your Comment</h3>
   <%= render :partial => 'comments/new' %>
 <% end %>
