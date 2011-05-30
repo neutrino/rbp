@@ -1,10 +1,11 @@
 class PostsController < ApplicationController
+
   before_filter :login_required, :except => [:index, :show]
 
   def index
     @posts = Post.all
     # show all posts that have more than 10 comments
-    @popular_posts = Post.all.collect{|p| p if p.comments.length > 10}.compact
+    @popular_posts = Post.popular_posts
 
     respond_to do |format|
       format.html
