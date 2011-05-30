@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
 
   NO_OF_COMMENTS = 10
+  RECENT_COMMENTS = 5
 
   has_many :comments
   belongs_to :user
@@ -10,7 +11,7 @@ class Post < ActiveRecord::Base
   validate :text, :presence => true
 
   def recent_commenters
-    self.comments.recent(5).collect{|comment| comment.user.login}.map{|commenter| "<li>#{commenter}</li>"}.join("")
+    self.comments.recent(RECENT_COMMENTS).inlcude(:user).collect{|comment| comment.user.login}
   end
 
 

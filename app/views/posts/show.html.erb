@@ -2,7 +2,11 @@
 
 <%= @post.text %>
 <h3>Hall of fame :: Recent Commenters</h3>
-<ul><%= raw @post.recent_commenters %></ul>
+<ul>
+<% @recent_commenters.each do |commenter| %>
+  <li><%= commenter %> </li>
+<% end %>
+</ul>
 <h3>All Comments</h3>
 <% Comment.where(post_id:@post.id).each do |comment| %>
   <p>

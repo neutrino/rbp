@@ -22,6 +22,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @recent_commenters =  @post.recent_commenters(5)
     @comment = Comment.new
     respond_with(@post, @comment)
   end
