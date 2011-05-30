@@ -1,23 +1,20 @@
 class CommentsController < ApplicationController
   before_filter :login_required
 
+  respond_with :html, :xml
+
   def new
     @post = Post.find(params[:post_id])
     @comment = @post.comments.build
-
-    respond_to do |format|
-      format.html
-      format.xml
-    end
+    respond_with(@post, @comment)
   end
 
   def create
     @post = Post.find(params[:post_id])
-    @comment = Comment.new(params[:comment])
-    @comment.post_id = @post.id
+    @comment = @post.comments.build(params[:comment])
     @comment.user_id = current_user.id
 
-    if @comment.is_minimum_length? && @comment.save
+    if @comment.save
       flash[:notice] = "Comment has been created."
       redirect_to user_post_path(current_user,@post)
     else
