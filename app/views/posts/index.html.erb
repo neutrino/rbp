@@ -2,13 +2,10 @@
 
 <h2>What people are talking about</h2>
 <% @popular_posts.each do |post| %>
-  <h4><%= link_to "#{post.title} (#{post.comments.length})", user_post_path(current_user,post) %></h4>
-  <%= post.text %>
+  <%= render 'post', :post => post, :user => current_user  %>
 <% end %>
 
 <h2>All Posts</h2>
-<% for post in @posts %>
-  <h4><%= link_to "#{post.title} (#{post.comments.length})", user_post_path(current_user,post) %></h4>
-  <%= post.text %>
+<% @posts.each do |post| %>
+  <%= render 'post', :post => post, :user => current_user  %>
 <% end %>
-

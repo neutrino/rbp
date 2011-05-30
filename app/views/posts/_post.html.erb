@@ -1,0 +1,8 @@
+<div class="blog_post">
+  <h4>
+  <%= link_to "#{post.title} (#{post.comments.length})", user_post_path(user, post) %>
+  </h4>
+<div class="post_content">
+<%= post.text %>
+</div>
+</div>
